@@ -1,0 +1,371 @@
+/* Responsiveness umum */
+@media (max-width: 992px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    nav {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .info-box,
+    #map {
+        width: 100% !important;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    table.display th,
+    table.display td {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .btn-detail {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    header div strong {
+        font-size: 13px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .info-box {
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        width: 100px;
+    }
+}
+
+/* Reset dan dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+
+/* Pembungkus utama */
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    color: black;
+    border-bottom: 5px solid #0000FF;
+}
+
+header img {
+    margin-right: 15px;
+}
+
+header div strong {
+    line-height: 1.3;
+    font-size: 15px;
+}
+
+nav a {
+    color: #0000FF;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 15px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+nav .dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+nav .dropdown>a {
+    cursor: pointer;
+    padding: 10px;
+    display: inline-block;
+    color: #0000FF;
+    text-decoration: none;
+}
+
+nav .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid blue;
+    min-width: 160px;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 255, 0.2);
+    top: 100%;
+    left: 0;
+}
+
+nav .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+nav .dropdown-content a {
+    display: block;
+    padding: 10px 16px;
+    color: blue;
+    text-decoration: none;
+}
+
+nav .dropdown-content a:hover {
+    background-color: #f0f8ff;
+}
+
+@media (max-width: 768px) {
+
+    header,
+    .nav {
+        width: 100%;
+    }
+}
+
+
+
+/* Konten utama */
+main {
+    padding: 30px;
+    text-align: center;
+    flex: 1;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+
+/* Peta dan info */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#map {
+    height: 600px;
+    width: 80%;
+    border: 3px solid blue;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.info-box {
+    border: 3px solid #0000FF;
+    border-radius: 10px;
+    padding: 25px;
+    width: 80%;
+    text-align: left;
+    font-size: 20px;
+}
+
+.info-box h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+
+    #map,
+    .info-box {
+        width: 100%;
+    }
+}
+
+
+/* Footer */
+footer {
+    background-color: #0000FF;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* Tabel Sekolah */
+.tabel-container {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+table.display {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border: 1px solid #0000FF;
+}
+
+table.display thead {
+    background-color: #0000FF;
+    color: white;
+    text-align: center;
+}
+
+table.display th,
+table.display td {
+    border: 1px solid #0000FF;
+    padding: 8px;
+    text-align: center;
+}
+
+table.display th {
+    text-align: center !important;
+}
+
+table.display tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table.display tbody tr:hover {
+    background-color: #e6f0ff;
+}
+
+/* Placeholder kosong */
+table.dataTable tbody td:empty::after {
+    content: "-";
+    color: #ccc;
+}
+
+/* DataTables Control */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: left;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #0000FF;
+    font-size: 14px;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    width: 160px;
+}
+
+.dataTables_wrapper .dataTables_filter label input:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 4px #0000FF;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_wrapper .dataTables_filter {
+        justify-content: flex-end;
+    }
+}
+
+/* style button detail tabel */
+.btn-detail {
+    background-color: #2874a7;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-detail:hover {
+    background-color: #2874a7;
+}
+
+.filter-control {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* style legenda */
+.info.legend {
+    background: white;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #333;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.info.legend i {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    opacity: 0.7;
+    display: inline-block;
+}
