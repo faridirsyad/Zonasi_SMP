@@ -41,94 +41,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password</title>
-    <style>
-        body {
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .reset-box {
-            background-color: white;
-            border: 2px solid #007BFF;
-            border-radius: 10px;
-            padding: 30px 40px;
-            width: 350px;
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.1);
-        }
-
-        .reset-box h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-        }
-
-        input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #007BFF;
-            border-radius: 5px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            border: none;
-            color: white;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .message {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .message a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        .message a:hover {
-            text-decoration: underline;
-        }
-
-        .error {
-            color: red;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .success {
-            color: green;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/loginstyle.css?v=<?= time() ?>">
 </head>
 
 <body>
 
-    <div class="reset-box">
+    <div class="logo">
+        <img src="assets/image/logo.png" alt="Logo">
+        <div class="instansi-info">
+            Dinas Pendidikan Kepemudaan<br>
+            dan Olahraga<br>
+            Kabupaten Banjarnegara
+        </div>
+    </div>
+
+    <div class="login-box">
         <h2>Reset Password</h2>
 
         <?php if (!empty($error)) echo "<p class='error'>" . htmlspecialchars($error) . "</p>"; ?>
@@ -136,15 +65,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <?php if (empty($success)) : ?>
             <form method="POST">
-                <label>Password Baru:</label>
-                <input type="password" name="password" required>
+                <label for="password">Password Baru:</label>
+                <input type="password" name="password" id="password" required>
 
-                <label>Konfirmasi Password:</label>
-                <input type="password" name="confirm_password" required>
+                <label for="confirm_password">Konfirmasi Password:</label>
+                <input type="password" name="confirm_password" id="confirm_password" required>
 
                 <button type="submit">Reset Password</button>
             </form>
         <?php endif; ?>
+
+        <div class="forgot-link">
+            <a href="lupa_password.php">← Kembali</a>
+        </div>
     </div>
 
 </body>

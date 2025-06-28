@@ -25,11 +25,11 @@ $_SESSION['captcha'] = $captcha_text;
 
 // Garis acak
 for ($i = 0; $i < 5; $i++) {
-    imageline($image, 0, rand() % 40, 100, rand() % 40, $line_color);
+    imageline($image, 0, rand() % 50, 100, rand() % 40, $line_color);
 }
 
 // Titik noise
-for ($i = 0; $i < 200; $i++) {
+for ($i = 0; $i < 150; $i++) {
     imagesetpixel($image, rand() % 100, rand() % 40, $pixel_color);
 }
 

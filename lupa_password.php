@@ -23,8 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
 
             $resetLink = "http://localhost/Skripsi/reset_password.php?token=$token";
-
-            // Di sistem nyata, kirim email ke $email dengan $resetLink
             $message = "Link reset password telah dikirim:<br><a href='$resetLink'>$resetLink</a>";
         } else {
             $message = "Email tidak ditemukan di sistem.";
@@ -38,81 +36,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lupa Password</title>
-    <style>
-        body {
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .box {
-            background-color: white;
-            border: 2px solid blue;
-            border-radius: 10px;
-            padding: 30px;
-            width: 320px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: blue;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            margin-top: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            margin-top: 20px;
-            width: 100%;
-            background-color: blue;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: darkblue;
-        }
-
-        .message {
-            margin-top: 15px;
-            color: green;
-        }
-
-        .error {
-            color: red;
-        }
-
-        a {
-            word-break: break-all;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/loginstyle.css">
 </head>
 
 <body>
 
-    <div class="box">
+    <div class="logo">
+        <img src="assets/image/logo.png" alt="Logo">
+        <div class="instansi-info">
+            Dinas Pendidikan Kepemudaan<br>
+            dan Olahraga<br>
+            Kabupaten Banjarnegara
+        </div>
+    </div>
+
+    <div class="login-box">
         <h2>Lupa Password</h2>
 
         <?php if ($message): ?>
@@ -126,6 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" name="email" id="email" placeholder="Email Anda" required>
             <button type="submit">Kirim Link Reset</button>
         </form>
+
+        <div class="forgot-link">
+            <a href="login.php">← Kembali ke Login</a>
+        </div>
     </div>
 
 </body>
