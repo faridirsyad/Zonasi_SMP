@@ -75,48 +75,49 @@ $totalSekolah = countData($conn, 'sekolah');
                                 🗑️ Data berhasil dihapus.
                             </div>
                         <?php endif; ?>
+                        <div class="table-wrapper">
+                            <table id="data-table" class="display">
+                                <thead>
+                                    <th>No</th>
+                                    <th>NPSN</th>
+                                    <th>Nama Sekolah</th>
+                                    <th>Alamat</th>
+                                    <th>Daya Tampung</th>
+                                    <th>Akreditasi</th>
+                                    <th>Latitude</th>
+                                    <th>Longitude</th>
+                                    <th>Aksi</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT * FROM sekolah";
+                                    $result = $conn->query($query);
+                                    while ($row = $result->fetch_assoc()):
+                                    ?>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td><?= htmlspecialchars($row['npsn']) ?></td>
+                                            <td><?= htmlspecialchars($row['nama_sekolah']) ?></td>
+                                            <td><?= htmlspecialchars($row['alamat_sekolah']) ?></td>
+                                            <td><?= htmlspecialchars($row['daya_tampung']) ?></td>
+                                            <td><?= htmlspecialchars($row['akreditasi']) ?></td>
+                                            <td><?= htmlspecialchars($row['latitude']) ?></td>
+                                            <td><?= htmlspecialchars($row['longitude']) ?></td>
+                                            <td>
+                                                <a href="edit_sekolah.php?id=<?= $row['id'] ?>">
+                                                    <button class="btn-detail">Edit</button>
+                                                </a>
+                                                <a href="delete_sekolah.php?id=<?= $row['id'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus informasi ini?')">
+                                                    <button class="btn-delete">Hapus</button>
+                                                </a>
 
-                        <table id="data-table" class="display">
-                            <thead>
-                                <th>No</th>
-                                <th>NPSN</th>
-                                <th>Nama Sekolah</th>
-                                <th>Alamat</th>
-                                <th>Daya Tampung</th>
-                                <th>Akreditasi</th>
-                                <th>Latitude</th>
-                                <th>Longitude</th>
-                                <th>Aksi</th>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                $query = "SELECT * FROM sekolah";
-                                $result = $conn->query($query);
-                                while ($row = $result->fetch_assoc()):
-                                ?>
-                                    <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td><?= htmlspecialchars($row['npsn']) ?></td>
-                                        <td><?= htmlspecialchars($row['nama_sekolah']) ?></td>
-                                        <td><?= htmlspecialchars($row['alamat_sekolah']) ?></td>
-                                        <td><?= htmlspecialchars($row['daya_tampung']) ?></td>
-                                        <td><?= htmlspecialchars($row['akreditasi']) ?></td>
-                                        <td><?= htmlspecialchars($row['latitude']) ?></td>
-                                        <td><?= htmlspecialchars($row['longitude']) ?></td>
-                                        <td>
-                                            <a href="edit_sekolah.php?id=<?= $row['id'] ?>">
-                                                <button class="btn-detail">Edit</button>
-                                            </a>
-                                            <a href="delete_sekolah.php?id=<?= $row['id'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus informasi ini?')">
-                                                <button class="btn-delete">Hapus</button>
-                                            </a>
-
-                                        </td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </main>

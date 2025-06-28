@@ -1,63 +1,3 @@
-/* Responsiveness umum */
-@media (max-width: 992px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    nav {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .info-box,
-    #map {
-        width: 100% !important;
-    }
-
-    main {
-        padding: 20px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    table.display th,
-    table.display td {
-        font-size: 12px;
-        padding: 6px;
-    }
-
-    .btn-detail {
-        font-size: 12px;
-        padding: 5px 10px;
-    }
-}
-
-@media (max-width: 576px) {
-    header div strong {
-        font-size: 13px;
-    }
-
-    nav a {
-        font-size: 13px;
-    }
-
-    .info-box {
-        font-size: 16px;
-        padding: 15px;
-    }
-
-    .dataTables_wrapper .dataTables_filter input {
-        width: 100px;
-    }
-}
-
 /* Reset dan dasar */
 * {
     margin: 0;
@@ -70,6 +10,7 @@ body {
     height: 100%;
     font-family: Arial, sans-serif;
     background-color: white;
+    overflow-x: hidden;
 }
 
 /* Pembungkus utama */
@@ -81,17 +22,15 @@ body {
 
 /* Header */
 header {
-    position: sticky;
-    top: 0;
-    z-index: 999;
+    position: relative;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 30px;
-    color: black;
     border-bottom: 5px solid #0000FF;
 }
+
 
 header img {
     margin-right: 15px;
@@ -102,6 +41,7 @@ header div strong {
     font-size: 15px;
 }
 
+/* Navigasi */
 nav a {
     color: #0000FF;
     text-decoration: none;
@@ -158,16 +98,6 @@ nav .dropdown-content a:hover {
     background-color: #f0f8ff;
 }
 
-@media (max-width: 768px) {
-
-    header,
-    .nav {
-        width: 100%;
-    }
-}
-
-
-
 /* Konten utama */
 main {
     padding: 30px;
@@ -213,15 +143,6 @@ h2 {
     text-align: center;
 }
 
-@media (max-width: 768px) {
-
-    #map,
-    .info-box {
-        width: 100%;
-    }
-}
-
-
 /* Footer */
 footer {
     background-color: #0000FF;
@@ -231,7 +152,7 @@ footer {
     font-size: 14px;
 }
 
-/* Tabel Sekolah */
+/* Tabel */
 .tabel-container {
     padding: 10px;
     background-color: #fff;
@@ -244,6 +165,7 @@ table.display {
     border-collapse: collapse;
     font-size: 14px;
     border: 1px solid #0000FF;
+    min-width: 480px;
 }
 
 table.display thead {
@@ -259,10 +181,6 @@ table.display td {
     text-align: center;
 }
 
-table.display th {
-    text-align: center !important;
-}
-
 table.display tbody tr:nth-child(even) {
     background-color: #f2f2f2;
 }
@@ -271,10 +189,20 @@ table.display tbody tr:hover {
     background-color: #e6f0ff;
 }
 
-/* Placeholder kosong */
-table.dataTable tbody td:empty::after {
-    content: "-";
-    color: #ccc;
+/* Tombol detail */
+.btn-detail {
+    background-color: #2874a7;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-detail:hover {
+    background-color: #1c5e8c;
 }
 
 /* DataTables Control */
@@ -303,55 +231,7 @@ table.dataTable tbody td:empty::after {
     font-size: 14px;
 }
 
-.dataTables_wrapper .dataTables_filter input {
-    width: 160px;
-}
-
-.dataTables_wrapper .dataTables_filter label input:focus {
-    outline: none;
-    border-color: #0056b3;
-    box-shadow: 0 0 4px #0000FF;
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter {
-        width: 100%;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-
-    .dataTables_wrapper .dataTables_filter {
-        justify-content: flex-end;
-    }
-}
-
-/* style button detail tabel */
-.btn-detail {
-    background-color: #2874a7;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-detail:hover {
-    background-color: #2874a7;
-}
-
-.filter-control {
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-/* style legenda */
+/* Legenda peta */
 .info.legend {
     background: white;
     padding: 10px;
@@ -368,4 +248,162 @@ table.dataTable tbody td:empty::after {
     margin-right: 8px;
     opacity: 0.7;
     display: inline-block;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+
+/* ≤ 992px */
+@media (max-width: 992px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    nav {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .info-box,
+    #map {
+        width: 100% !important;
+    }
+
+    table.display th,
+    table.display td {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .btn-detail {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
+
+/* ≤ 768px */
+@media (max-width: 768px) {
+
+    header,
+    .nav {
+        width: 100%;
+    }
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_wrapper .dataTables_filter {
+        justify-content: flex-end;
+    }
+}
+
+/* ≤ 576px */
+@media (max-width: 576px) {
+    header div strong {
+        font-size: 13px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .info-box {
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        width: 100px;
+    }
+}
+
+/* ≤ 500px - */
+@media (max-width: 500px) {
+    body {
+        font-size: 13px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px 15px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    nav a {
+        font-size: 13px;
+        padding: 5px;
+    }
+
+    .container {
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .info-box,
+    #map {
+        width: 100% !important;
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    .info-box h4 {
+        font-size: 16px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input,
+    .dataTables_wrapper .dataTables_length select {
+        font-size: 12px;
+        width: auto;
+    }
+
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dataTables_length {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .dataTables_wrapper .dataTables_filter {
+        align-items: flex-end;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        width: 100px;
+    }
+
+    .tabel-container {
+        overflow-x: auto;
+        padding: 10px;
+    }
+
+    table.display {
+        font-size: 13px;
+        min-width: 480px;
+    }
+
+    .btn-detail {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+
+    footer {
+        font-size: 12px;
+        padding: 8px;
+    }
 }

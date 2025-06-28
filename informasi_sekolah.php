@@ -6,15 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informasi Sekolah</title>
-
-    <!-- Panggil DataTables CSS dulu -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-
-    <!-- Baru panggil CSS kamu -->
     <link rel="stylesheet" href="assets/style.css">
 
     <style>
-        /* Tombol Detail */
         .btn-detail {
             background-color: #0000FF;
             color: white;
@@ -28,7 +23,6 @@
             background-color: #4169e1;
         }
 
-        /* Custom Pagination */
         .dataTables_wrapper .dataTables_paginate {
             text-align: right;
             margin-top: 10px;
@@ -40,7 +34,6 @@
             border: 1px solid #0000FF;
             border-radius: 4px;
             background-color: #f0f8ff;
-            /* Biru muda */
             color: #0000FF !important;
             cursor: pointer;
             transition: 0.3s;
@@ -138,7 +131,10 @@
     <!-- Inisialisasi DataTables -->
     <script>
         $(document).ready(function() {
+            const isMobile = window.innerWidth <= 500;
+
             $('#sekolah-table').DataTable({
+                pagingType: isMobile ? "simple_numbers" : "full_numbers",
                 language: {
                     search: "Cari Nama Sekolah : ",
                     lengthMenu: "Tampilkan _MENU_ data",
@@ -150,6 +146,7 @@
             });
         });
     </script>
+
 
 </body>
 

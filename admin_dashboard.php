@@ -95,7 +95,7 @@ $totalDesa = countData($conn, 'desakel');
                         </div>
                     <?php endif; ?>
 
-                    <div class="tabel-container">
+                    <div class="table-wrapper">
                         <table id="data-table" class="display">
                             <thead>
                                 <tr>
