@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sss", $token, $expires, $email);
             $stmt->execute();
 
-            $resetLink = "http://localhost/Skripsi/reset_password.php?token=$token";
+            $resetLink = "http://zonasi.xyz/ZonasiSMP/reset_password.php?token=$token";
             $message = "Link reset password telah dikirim:<br><a href='$resetLink'>$resetLink</a>";
         } else {
             $message = "Email tidak ditemukan di sistem.";
