@@ -3,11 +3,12 @@ include 'admin_only.php';
 include 'koneksi.php';
 
 $id = $_GET['id'] ?? null;
-
 if (!$id) {
     echo "ID tidak ditemukan.";
     exit;
 }
+
+$success = isset($_GET['success']);
 
 $query = $conn->prepare("SELECT * FROM sekolah WHERE id = ?");
 $query->bind_param("i", $id);
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sssssssi", $npsn, $nama_sekolah, $alamat_sekolah, $daya_tampung, $akreditasi, $latitude, $longitude, $id);
     $stmt->execute();
 
-    header("Location: admin_sekolah.php");
+    header("Location: edit_sekolah.php?id=$id&success=1");
     exit;
 }
 ?>
@@ -51,6 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="form-container">
         <h2>Edit Data Sekolah</h2>
+
+        <!-- Pesan sukses -->
+        <?php if ($success): ?>
+            <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb; border-radius: 5px;">
+                ✅ Data telah berhasil diupdate.
+            </div>
+        <?php endif; ?>
         <form method="POST">
             <label for="npsn">NPSN:</label>
             <input type="text" name="npsn" value="<?= htmlspecialchars($data['npsn']) ?>" required>

@@ -21,19 +21,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Sekolah</title>
+    <title>Tambah Data Kecamatan</title>
     <link rel="stylesheet" href="assets/datastyle.css">
 </head>
 
 <body>
     <div class="form-container">
-        <h2>Tambah Data Sekolah</h2>
+        <h2>Tambah Data Kecamatan</h2>
 
         <!-- Pesan sukses -->
         <?php if ($success): ?>
@@ -43,20 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="POST">
-            <label for="npsn">NPSN:</label>
-            <input type="text" name="npsn" required>
-
-            <label for="nama_sekolah">Nama Sekolah:</label>
-            <textarea name="nama_sekolah" rows="2" required></textarea>
-
-            <label for="alamat_sekolah">Alamat Sekolah:</label>
-            <textarea name="alamat_sekolah" rows="2" required></textarea>
-
-            <label for="daya_tampung">Daya Tampung:</label>
-            <input type="text" name="daya_tampung" required>
-
-            <label for="akreditasi">Akreditasi:</label>
-            <input type="text" name="akreditasi" required>
+            <label for="nama_kecamatan">Nama Kecamatan:</label>
+            <input type="text" name="nama_kecamatan" required>
 
             <label for="latitude">Latitude:</label>
             <input type="text" name="latitude" required>
@@ -64,11 +54,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="longitude">Longitude:</label>
             <input type="text" name="longitude" required>
 
+            <label for="geojson">Geojson:</label>
+            <input type="text" name="geojson" required>
+
+
             <button type="submit">Simpan</button>
         </form>
 
-        <a href="admin_sekolah.php">← Kembali</a>
+        <a href="admin_kecamatan.php">← Kembali</a>
     </div>
 </body>
+
 
 </html>
