@@ -51,6 +51,11 @@
             /* Hover biru muda */
             color: white !important;
         }
+
+        #sekolah-table thead th {
+            text-align: center;
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -131,21 +136,33 @@
     <!-- Inisialisasi DataTables -->
     <script>
         $(document).ready(function() {
-            const isMobile = window.innerWidth <= 500;
-
-            $('#sekolah-table').DataTable({
-                pagingType: isMobile ? "simple_numbers" : "full_numbers",
+            var table = $('#sekolah-table').DataTable({
                 language: {
-                    search: "Cari Nama Sekolah : ",
+                    search: "", // Kosongkan label default
                     lengthMenu: "Tampilkan _MENU_ data",
                     zeroRecords: "Data tidak ditemukan",
                     info: "",
                     infoEmpty: "",
                     infoFiltered: ""
+                },
+                initComplete: function() {
+                    // Ganti label default filter dengan filter khusus Nama Sekolah
+                    $('#sekolah-table_filter').html(`
+                    <label>Cari Nama Sekolah :
+                        <input type="text" id="search-nama">
+                    </label>
+                `);
+
+                    // Kolom ke-2 (index 2) adalah Nama Sekolah
+                    $('#search-nama').on('keyup', function() {
+                        table.column(2).search(this.value).draw();
+                    });
                 }
             });
         });
     </script>
+
+
 
 
 </body>

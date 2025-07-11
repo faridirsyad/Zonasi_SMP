@@ -42,8 +42,8 @@ $totalDesa = countData($conn, 'desakel');
                 <strong>DINDIKPORA BANJARNEGARA</strong>
             </div>
             <nav class="sidebar-nav">
-                <a href="admin_dashboard.php">Dashboard</a>
-                <a href="admin_sekolah.php" class="active">Data Sekolah</a>
+                <a href="admin_dashboard.php" class="active">Dashboard</a>
+                <a href="admin_sekolah.php">Data Sekolah</a>
                 <a href="admin_kecamatan.php">Data Kecamatan</a>
                 <a href="admin_desakel.php">Data Desa/Kelurahan</a>
                 <a href="admin_kelola.php">Kelola Akun Admin</a>
@@ -66,6 +66,18 @@ $totalDesa = countData($conn, 'desakel');
                         <div class="card">
                             <img src="assets/image/school.png" alt="Sekolah" width="40">
                             <p><?= $totalSekolah ?> Sekolah</p>
+                        </div>
+                    </a>
+                    <a href="admin_kecamatan.php" class="card-link">
+                        <div class="card">
+                            <img src="assets/image/kec.png" alt="Kecamatan" width="40">
+                            <p><?= $totalKecamatan ?> Kecamatan</p>
+                        </div>
+                    </a>
+                    <a href="admin_desakel.php" class="card-link">
+                        <div class="card">
+                            <img src="assets/image/village.png" alt="Desa" width="40">
+                            <p><?= $totalDesa ?> Desa/Kelurahan</p>
                         </div>
                     </a>
                 </div>
@@ -139,9 +151,9 @@ $totalDesa = countData($conn, 'desakel');
 
     <script>
         $(document).ready(function() {
-            var table = $('#data-table').DataTable({
+            $('#data-table').DataTable({
                 language: {
-                    search: "", // kosongkan label bawaan
+                    search: "Cari Informasi : ",
                     lengthMenu: "Tampilkan _MENU_ data",
                     zeroRecords: "Data tidak ditemukan",
                     info: "",
@@ -149,17 +161,8 @@ $totalDesa = countData($conn, 'desakel');
                     infoFiltered: ""
                 },
                 initComplete: function() {
-                    // Tambahkan input kustom ke div filter setelah DataTables selesai inisialisasi
-                    $('#data-table_filter').html(`
-                <label>Cari Nama Sekolah :
-                    <input type="text" id="search-nama">
-                </label>
-            `);
-
-                    // Event listener untuk filter khusus kolom Nama Sekolah (misal kolom ke-0)
-                    $('#search-nama').on('keyup', function() {
-                        table.column(2).search(this.value).draw();
-                    });
+                    // Tambahkan kelas .top ke parent agar flexbox aktif
+                    $('.dataTables_length').parent().addClass('top');
                 }
             });
         });

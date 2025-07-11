@@ -143,9 +143,9 @@ $totalDesakel = countData($conn, 'desakel');
 
     <script>
         $(document).ready(function() {
-            $('#data-table').DataTable({
+            var table = $('#data-table').DataTable({
                 language: {
-                    search: "Cari Nama Desa/Kelurahan : ",
+                    search: "", // kosongkan label bawaan
                     lengthMenu: "Tampilkan _MENU_ data",
                     zeroRecords: "Data tidak ditemukan",
                     info: "",
@@ -153,8 +153,17 @@ $totalDesakel = countData($conn, 'desakel');
                     infoFiltered: ""
                 },
                 initComplete: function() {
-                    // Tambahkan kelas .top ke parent agar flexbox aktif
-                    $('.dataTables_length').parent().addClass('top');
+                    // Tambahkan input kustom ke div filter setelah DataTables selesai inisialisasi
+                    $('#data-table_filter').html(`
+                <label>Cari Nama Desa/Kelurahan :
+                    <input type="text" id="search-nama">
+                </label>
+            `);
+
+                    // Event listener untuk filter khusus kolom Nama Sekolah (misal kolom ke-0)
+                    $('#search-nama').on('keyup', function() {
+                        table.column(1).search(this.value).draw();
+                    });
                 }
             });
         });
