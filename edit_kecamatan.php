@@ -59,16 +59,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form method="POST">
             <label for="nama_kecamatan">Nama Kecamatan:</label>
-            <input type="text" name="nama_kecamatan" id="nama_kecamatan" value="<?= htmlspecialchars($data['nama_kecamatan']) ?>" required>
+            <input type="text" name="nama_kecamatan" id="nama_kecamatan" value="<?= htmlspecialchars($data['nama_kecamatan']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="latitude">Latitude:</label>
-            <input type="text" name="latitude" value="<?= htmlspecialchars($data['latitude']) ?>" required>
+            <input type="text" name="latitude" value="<?= htmlspecialchars($data['latitude']) ?>" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"
+                title="Masukkan angka desimal, contoh: -7.123456">
 
             <label for="longitude">Longitude:</label>
-            <input type="text" name="longitude" value="<?= htmlspecialchars($data['longitude']) ?>" required>
+            <input type="text" name="longitude" value="<?= htmlspecialchars($data['longitude']) ?>" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"
+                title="Masukkan angka desimal, contoh: 109.123456">
 
             <label for="geojson">Geojson:</label>
-            <input type="text" name="geojson" id="geojson" value="<?= htmlspecialchars($data['geojson']) ?>" required>
+            <input type="text" name="geojson" id="geojson" value="<?= htmlspecialchars($data['geojson']) ?>" required
+                pattern="[a-zA-Z0-9_\-\.]+\.geojson"
+                title="Nama file harus diakhiri .geojson">
 
             <button type="submit">Update</button>
         </form>

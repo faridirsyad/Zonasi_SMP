@@ -61,25 +61,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         <form method="POST">
             <label for="npsn">NPSN:</label>
-            <input type="text" name="npsn" value="<?= htmlspecialchars($data['npsn']) ?>" required>
+            <input type="text" name="npsn" value="<?= htmlspecialchars($data['npsn']) ?>" required pattern="\d+" title="Hanya angka tanpa spasi">
 
             <label for="nama_sekolah">Nama Sekolah:</label>
-            <textarea name="nama_sekolah" rows="3" required><?= htmlspecialchars($data['nama_sekolah']) ?></textarea>
+            <input type="text" name="nama_sekolah" value="<?= htmlspecialchars($data['nama_sekolah']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi"">
 
-            <label for="alamat_sekolah">Alamat Sekolah:</label>
-            <textarea name="alamat_sekolah" rows="3" required><?= htmlspecialchars($data['alamat_sekolah']) ?></textarea>
+            <label for=" alamat_sekolah">Alamat Sekolah:</label>
+            <input type="text" name="alamat_sekolah" value="<?= htmlspecialchars($data['alamat_sekolah']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi"">
 
-            <label for="daya_tampung">Daya Tampung:</label>
-            <input type="text" name="daya_tampung" value="<?= htmlspecialchars($data['daya_tampung']) ?>" required>
+            <label for=" daya_tampung">Daya Tampung:</label>
+            <input type="text" name="daya_tampung" value="<?= htmlspecialchars($data['daya_tampung']) ?>" required pattern="\d+" title="Hanya angka tanpa spasi">
 
             <label for="akreditasi">Akreditasi:</label>
-            <input type="text" name="akreditasi" value="<?= htmlspecialchars($data['akreditasi']) ?>" required>
+            <input type="text" name="akreditasi" value="<?= htmlspecialchars($data['akreditasi']) ?>" required pattern="[A-E]" title="Hanya huruf A, B, C, D, atau E saja">
 
             <label for="latitude">Latitude:</label>
-            <input type="text" name="latitude" value="<?= htmlspecialchars($data['latitude']) ?>" required>
+            <input type="text" name="latitude" value="<?= htmlspecialchars($data['latitude']) ?>" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"
+                title="Masukkan angka desimal, contoh: -7.123456">
 
             <label for="longitude">Longitude:</label>
-            <input type="text" name="longitude" value="<?= htmlspecialchars($data['longitude']) ?>" required>
+            <input type="text" name="longitude" value="<?= htmlspecialchars($data['longitude']) ?>" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"
+                title="Masukkan angka desimal, contoh: 109.123456">
 
             <button type="submit">Update</button>
         </form>

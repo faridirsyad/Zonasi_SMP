@@ -59,16 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form method="POST">
             <label for="nama_desakel">Nama Kecamatan:</label>
-            <input type="text" name="nama_desakel" id="nama_desakel" value="<?= htmlspecialchars($data['nama_desakel']) ?>" required>
+            <input type="text" name="nama_desakel" id="nama_desakel" value="<?= htmlspecialchars($data['nama_desakel']) ?>" required pattern=".*\S+.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="kecamatan">Kecamatan:</label>
-            <input type="text" name="kecamatan" id="kecamatan" value="<?= htmlspecialchars($data['kecamatan']) ?>" required>
+            <input type="text" name="kecamatan" id="kecamatan" value="<?= htmlspecialchars($data['kecamatan']) ?>" required pattern=".*\S+.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="latitude">Latitude:</label>
-            <input type="text" name="latitude" value="<?= htmlspecialchars($data['latitude']) ?>" required>
+            <input type="text" name="latitude" value="<?= htmlspecialchars($data['latitude']) ?>" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"
+                title="Masukkan angka desimal, contoh: -7.123456">
 
             <label for="longitude">Longitude:</label>
-            <input type="text" name="longitude" value="<?= htmlspecialchars($data['longitude']) ?>" required>
+            <input type="text" name="longitude" value="<?= htmlspecialchars($data['longitude']) ?>" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"
+                title="Masukkan angka desimal, contoh: 109.123456">
 
 
             <button type="submit">Update</button>

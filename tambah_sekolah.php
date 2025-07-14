@@ -5,13 +5,13 @@ include 'koneksi.php';
 $success = isset($_GET['success']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $npsn = $_POST['npsn'];
-    $nama_sekolah = $_POST['nama_sekolah'];
-    $alamat_sekolah = $_POST['alamat_sekolah'];
-    $daya_tampung = $_POST['daya_tampung'];
-    $akreditasi = $_POST['akreditasi'];
-    $latitude = $_POST['latitude'];
-    $longitude = $_POST['longitude'];
+    $npsn = trim($_POST['npsn']);
+    $nama_sekolah = trim($_POST['nama_sekolah']);
+    $alamat_sekolah = trim($_POST['alamat_sekolah']);
+    $daya_tampung = trim($_POST['daya_tampung']);
+    $akreditasi = trim($_POST['akreditasi']);
+    $latitude = trim($_POST['latitude']);
+    $longitude = trim($_POST['longitude']);
 
     $stmt = $conn->prepare("INSERT INTO sekolah (npsn, nama_sekolah, alamat_sekolah, daya_tampung, akreditasi, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssss", $npsn, $nama_sekolah, $alamat_sekolah, $daya_tampung, $akreditasi, $latitude, $longitude);
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-container">
         <h2>Tambah Data Sekolah</h2>
 
-        <!-- Pesan sukses -->
         <?php if ($success): ?>
             <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb; border-radius: 5px;">
                 ✅ Data telah berhasil ditambahkan.
@@ -45,25 +44,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form method="POST">
             <label for="npsn">NPSN:</label>
-            <input type="text" name="npsn" required>
+            <input type="text" name="npsn" required pattern="\d+" title="Hanya angka tanpa spasi">
 
             <label for="nama_sekolah">Nama Sekolah:</label>
-            <textarea name="nama_sekolah" rows="2" required></textarea>
+            <input type="text" name="nama_sekolah" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="alamat_sekolah">Alamat Sekolah:</label>
-            <textarea name="alamat_sekolah" rows="2" required></textarea>
+            <input type="text" name="alamat_sekolah" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="daya_tampung">Daya Tampung:</label>
-            <input type="text" name="daya_tampung" required>
+            <input type="text" name="daya_tampung" required pattern="\d+" title="Hanya angka tanpa spasi">
 
             <label for="akreditasi">Akreditasi:</label>
-            <input type="text" name="akreditasi" required>
+            <input type="text" name="akreditasi" required pattern="[A-E]" title="Hanya huruf A, B, C, D, atau E saja">
 
             <label for="latitude">Latitude:</label>
-            <input type="text" name="latitude" required>
+            <input type="text" name="latitude" required pattern="^-?\d{1,3}(\.\d+)?$" title="Masukkan angka desimal, contoh: -7.123456">
 
             <label for="longitude">Longitude:</label>
-            <input type="text" name="longitude" required>
+            <input type="text" name="longitude" required pattern="^-?\d{1,3}(\.\d+)?$" title="Masukkan angka desimal, contoh: 109.123456">
 
             <button type="submit">Simpan</button>
         </form>
