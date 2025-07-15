@@ -56,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="daya_tampung" required pattern="\d+" title="Hanya angka tanpa spasi">
 
             <label for="akreditasi">Akreditasi:</label>
-            <input type="text" name="akreditasi" required pattern="[A-E]" title="Hanya huruf A, B, C, D, atau E saja">
+            <input type="text" name="akreditasi" required pattern="^[A-C]{1}$" title="Hanya huruf A, B, atau C saja" maxlength="1" autocomplete="off">
+
 
             <label for="latitude">Latitude:</label>
             <input type="text" name="latitude" required pattern="^-?\d{1,3}(\.\d+)?$" title="Masukkan angka desimal, contoh: -7.123456">
