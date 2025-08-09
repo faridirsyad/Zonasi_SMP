@@ -165,6 +165,10 @@ $data = $result->fetch_assoc();
                                 <td><?= htmlspecialchars($data['akreditasi']) ?></td>
                             </tr>
                             <tr>
+                                <td>Korda</td>
+                                <td><?= htmlspecialchars($data['korda']) ?></td>
+                            </tr>
+                            <tr>
                                 <td>Daya Tampung</td>
                                 <td><?= htmlspecialchars($data['daya_tampung']) ?> siswa</td>
                             </tr>

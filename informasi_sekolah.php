@@ -95,6 +95,7 @@
                             <th>Alamat</th>
                             <th>Daya Tampung</th>
                             <th>Akreditasi</th>
+                            <th>Korda</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -112,6 +113,7 @@
                                 <td><?= htmlspecialchars($row['alamat_sekolah']) ?></td>
                                 <td><?= htmlspecialchars($row['daya_tampung']) ?></td>
                                 <td><?= htmlspecialchars($row['akreditasi']) ?></td>
+                                <td><?= htmlspecialchars($row['korda']) ?></td>
                                 <td>
                                     <a href="detail_sekolah.php?id=<?= $row['id'] ?>">
                                         <button class="btn-detail">Profil Sekolah</button>

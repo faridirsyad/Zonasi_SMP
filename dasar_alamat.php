@@ -7,6 +7,13 @@ $result = $conn->query("SELECT * FROM sekolah");
 while ($row = $result->fetch_assoc()) {
     $sekolahData[] = $row;
 }
+
+// Ambil data semua korda + nama geojson
+$kordaData = [];
+$result = $conn->query("SELECT id, nama_korda, geojson FROM korda");
+while ($row = $result->fetch_assoc()) {
+    $kordaData[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -175,6 +182,7 @@ while ($row = $result->fetch_assoc()) {
             &copy; Copyright Dindikpora Kab. Banjarnegara. All Rights Reserved
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
     <script>
         const sekolahData = <?= json_encode($sekolahData) ?>;
     </script>

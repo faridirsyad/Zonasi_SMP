@@ -9,10 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_kecamatan = trim($_POST['nama_kecamatan']);
     $latitude = trim($_POST['latitude']);
     $longitude = trim($_POST['longitude']);
+    $korda = trim($_POST['korda']);
     $geojson = trim($_POST['geojson']);
 
-    $stmt = $conn->prepare("INSERT INTO kecamatan (nama_kecamatan, latitude, longitude, geojson) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $nama_kecamatan, $latitude, $longitude, $geojson);
+    $stmt = $conn->prepare("INSERT INTO kecamatan (nama_kecamatan, latitude, longitude, korda, geojson) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $nama_kecamatan, $latitude, $longitude, $korda, $geojson);
     $stmt->execute();
 
     header("Location: tambah_kecamatan.php?success=1");
@@ -57,6 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="longitude">Longitude:</label>
             <input type="text" name="longitude" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"
                 title="Masukkan angka desimal, contoh: 109.123456">
+
+            <label for="korda">Korda:</label>
+            <input type="text" name="korda" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="geojson">GeoJSON (contoh: nama_file.geojson):</label>
             <input type="text" name="geojson" required

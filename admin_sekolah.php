@@ -92,6 +92,7 @@ $totalDesa = countData($conn, 'desakel');
                                 <th>Alamat</th>
                                 <th>Daya Tampung</th>
                                 <th>Akreditasi</th>
+                                <th>Korda</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
                                 <th>Aksi</th>
@@ -110,6 +111,7 @@ $totalDesa = countData($conn, 'desakel');
                                         <td><?= htmlspecialchars($row['alamat_sekolah']) ?></td>
                                         <td><?= htmlspecialchars($row['daya_tampung']) ?></td>
                                         <td><?= htmlspecialchars($row['akreditasi']) ?></td>
+                                        <td><?= htmlspecialchars($row['korda']) ?></td>
                                         <td><?= htmlspecialchars($row['latitude']) ?></td>
                                         <td><?= htmlspecialchars($row['longitude']) ?></td>
                                         <td>

@@ -27,11 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alamat_sekolah = $_POST['alamat_sekolah'];
     $daya_tampung = $_POST['daya_tampung'];
     $akreditasi = $_POST['akreditasi'];
+    $korda = $_POST['korda'];
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
 
-    $stmt = $conn->prepare("UPDATE sekolah SET npsn = ?, nama_sekolah = ?, alamat_sekolah = ?, daya_tampung = ?, akreditasi = ?, latitude = ?, longitude = ? WHERE id = ?");
-    $stmt->bind_param("sssssssi", $npsn, $nama_sekolah, $alamat_sekolah, $daya_tampung, $akreditasi, $latitude, $longitude, $id);
+    $stmt = $conn->prepare("UPDATE sekolah SET npsn = ?, nama_sekolah = ?, alamat_sekolah = ?, daya_tampung = ?, akreditasi = ?, korda = ?, latitude = ?, longitude = ? WHERE id = ?");
+    $stmt->bind_param("ssssssssi", $npsn, $nama_sekolah, $alamat_sekolah, $daya_tampung, $akreditasi, $korda, $latitude, $longitude, $id);
     $stmt->execute();
 
     header("Location: edit_sekolah.php?id=$id&success=1");
@@ -64,16 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="npsn" value="<?= htmlspecialchars($data['npsn']) ?>" required pattern="\d+" title="Hanya angka tanpa spasi">
 
             <label for="nama_sekolah">Nama Sekolah:</label>
-            <input type="text" name="nama_sekolah" value="<?= htmlspecialchars($data['nama_sekolah']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi"">
+            <input type="text" name="nama_sekolah" value="<?= htmlspecialchars($data['nama_sekolah']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for=" alamat_sekolah">Alamat Sekolah:</label>
-            <input type="text" name="alamat_sekolah" value="<?= htmlspecialchars($data['alamat_sekolah']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi"">
+            <input type="text" name="alamat_sekolah" value="<?= htmlspecialchars($data['alamat_sekolah']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for=" daya_tampung">Daya Tampung:</label>
             <input type="text" name="daya_tampung" value="<?= htmlspecialchars($data['daya_tampung']) ?>" required pattern="\d+" title="Hanya angka tanpa spasi">
 
             <label for="akreditasi">Akreditasi:</label>
             <input type="text" name="akreditasi" value="<?= htmlspecialchars($data['akreditasi']) ?>" required pattern="^[A-C]{1}$" title="Hanya huruf A, B, atau C saja" maxlength="1" autocomplete="off">
+
+            <label for="korda">Korda:</label>
+            <input type="text" name="korda" value="<?= htmlspecialchars($data['korda']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="latitude">Latitude:</label>
             <input type="text" name="latitude" value="<?= htmlspecialchars($data['latitude']) ?>" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"

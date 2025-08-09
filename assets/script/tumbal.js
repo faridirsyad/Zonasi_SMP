@@ -16,7 +16,6 @@ const userIcon = L.icon({
 
 // Tampilkan marker sekolah
 sekolahData.forEach((s) => {
-  s.korda = s.korda.toString(); // pastikan korda adalah string
   const markerSekolah = L.marker([s.latitude, s.longitude]).bindPopup(`<strong>${s.nama_sekolah}</strong><br>${s.alamat_sekolah}`);
   markerSekolah.addTo(map);
 });
@@ -32,10 +31,10 @@ if (!map.getPane(geojsonPane)) {
 const allKordaLayers = [];
 const geojsonFiles = ["Korda1.geojson", "Korda2.geojson", "Korda3.geojson", "Korda4.geojson"];
 const kordaColors = {
-  Korda1: "#1631cb",
-  Korda2: "#33a02c",
-  Korda3: "#f05255",
-  Korda4: "#fffb21",
+  Korda1: "#f38181",
+  Korda2: "#fce38a",
+  Korda3: "#95e1d3",
+  Korda4: "#78b6c5ff",
 };
 
 geojsonFiles.forEach((file) => {
@@ -87,11 +86,9 @@ map.on("click", function (e) {
     return { ...s, jarak };
   });
 
-  const idKorda = kordaDitemukan.replace("Korda", "");
+  const sekolahKordaSama = sekolahDenganJarak.filter((s) => s.korda === kordaDitemukan).sort((a, b) => a.jarak - b.jarak);
 
-  const sekolahKordaSama = sekolahDenganJarak.filter((s) => s.korda === idKorda).sort((a, b) => a.jarak - b.jarak);
-
-  const sekolahKordaLain = sekolahDenganJarak.filter((s) => s.korda !== idKorda).sort((a, b) => a.jarak - b.jarak);
+  const sekolahKordaLain = sekolahDenganJarak.filter((s) => s.korda !== kordaDitemukan).sort((a, b) => a.jarak - b.jarak);
 
   const infoBox = document.getElementById("info-box");
   let content = `
@@ -159,10 +156,10 @@ legend.onAdd = function () {
     <h4>Keterangan</h4>
     <img src="assets/image/user-marker.png" width="25"> Lokasi Anda<br>
     <img src="assets/image/school-marker.png" width="25"> Lokasi Sekolah<br><br>
-    <i style="background: #1631cb; width: 18px; height: 18px; display: inline-block;"></i> Korda1<br>
-    <i style="background: #33a02c; width: 18px; height: 18px; display: inline-block;"></i> Korda2<br>
-    <i style="background: #f05255; width: 18px; height: 18px; display: inline-block;"></i> Korda3<br>
-    <i style="background: #fffb21; width: 18px; height: 18px; display: inline-block;"></i> Korda4
+    <i style="background: #f38181; width: 18px; height: 18px; display: inline-block;"></i> Korda1<br>
+    <i style="background: #fce38a; width: 18px; height: 18px; display: inline-block;"></i> Korda2<br>
+    <i style="background: #95e1d3; width: 18px; height: 18px; display: inline-block;"></i> Korda3<br>
+    <i style="background: #78b6c5ff; width: 18px; height: 18px; display: inline-block;"></i> Korda4
   `;
   return div;
 };

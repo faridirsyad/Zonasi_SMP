@@ -25,10 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_kecamatan = $_POST['nama_kecamatan'];
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
+    $korda = $_POST['korda'];
     $geojson = $_POST['geojson'];
 
-    $stmt = $conn->prepare("UPDATE kecamatan SET nama_kecamatan = ?, latitude = ?, longitude = ?, geojson = ? WHERE id = ?");
-    $stmt->bind_param("ssssi", $nama_kecamatan, $latitude, $longitude, $geojson, $id);
+    $stmt = $conn->prepare("UPDATE kecamatan SET nama_kecamatan = ?, latitude = ?, longitude = ?, korda = ?, geojson = ? WHERE id = ?");
+    $stmt->bind_param("sssssi", $nama_kecamatan, $latitude, $longitude, $korda, $geojson, $id);
     $stmt->execute();
 
     header("Location: edit_kecamatan.php?id=$id&success=1");
@@ -68,6 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="longitude">Longitude:</label>
             <input type="text" name="longitude" value="<?= htmlspecialchars($data['longitude']) ?>" required pattern="^-?\d{1,3}(\.\d+)?$" step="any"
                 title="Masukkan angka desimal, contoh: 109.123456">
+
+            <label for="korda">Korda:</label>
+            <input type="text" name="korda" id="korda" value="<?= htmlspecialchars($data['korda']) ?>" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="geojson">Geojson:</label>
             <input type="text" name="geojson" id="geojson" value="<?= htmlspecialchars($data['geojson']) ?>" required

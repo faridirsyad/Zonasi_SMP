@@ -82,6 +82,7 @@ $totalKecamatan = countData($conn, 'kecamatan');
                                     <th>Nama Kecamatan</th>
                                     <th>Latitude</th>
                                     <th>Longitude</th>
+                                    <th>Korda</th>
                                     <th>Geojson</th>
                                     <th>Aksi</th>
                                 </thead>
@@ -97,6 +98,7 @@ $totalKecamatan = countData($conn, 'kecamatan');
                                             <td><?= htmlspecialchars($row['nama_kecamatan']) ?></td>
                                             <td><?= htmlspecialchars($row['latitude']) ?></td>
                                             <td><?= htmlspecialchars($row['longitude']) ?></td>
+                                            <td><?= htmlspecialchars($row['korda']) ?></td>
                                             <td><?= htmlspecialchars($row['geojson']) ?></td>
                                             <td>
                                                 <a href="edit_kecamatan.php?id=<?= $row['id'] ?>">

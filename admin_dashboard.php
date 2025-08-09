@@ -2,40 +2,88 @@
 include 'admin_only.php';
 include 'koneksi.php';
 
-function countData($conn, $table)
-{
-    $result = $conn->query("SELECT COUNT(*) as total FROM $table");
-    $data = $result->fetch_assoc();
-    return $data['total'];
+// Ambil semua sekolah yang memiliki koordinat
+$markers = [];
+$allSekolahQuery = "SELECT id, nama_sekolah, latitude, longitude, alamat_sekolah, korda, daya_tampung FROM sekolah WHERE latitude IS NOT NULL AND longitude IS NOT NULL";
+$allResult = $conn->query($allSekolahQuery);
+while ($row = $allResult->fetch_assoc()) {
+    $markers[] = $row;
 }
 
-$totalSekolah = countData($conn, 'sekolah');
-$totalKecamatan = countData($conn, 'kecamatan');
-$totalDesa = countData($conn, 'desakel');
+// Ambil data semua korda + nama geojson
+$kordaData = [];
+$result = $conn->query("SELECT id, nama_korda, geojson FROM korda");
+while ($row = $result->fetch_assoc()) {
+    $kordaData[] = $row;
+}
+
+// Hitung jumlah sekolah per Korda
+$jumlahSekolah = [];
+$query = "
+    SELECT k.nama_korda, COUNT(s.id) AS total
+    FROM sekolah s
+    JOIN korda k ON s.korda = k.id
+    WHERE s.latitude IS NOT NULL AND s.longitude IS NOT NULL
+    GROUP BY k.nama_korda
+";
+$result = $conn->query($query);
+while ($row = $result->fetch_assoc()) {
+    $korda = trim($row['nama_korda']);
+    $jumlahSekolah[$korda] = (int)$row['total'];
+}
+
+// Hitung jumlah total daya tampung per Korda
+$jumlahTampung = [];
+$query = "
+    SELECT k.nama_korda, SUM(s.daya_tampung) AS total_tampung
+    FROM sekolah s
+    JOIN korda k ON s.korda = k.id
+    WHERE s.latitude IS NOT NULL AND s.longitude IS NOT NULL
+    GROUP BY k.nama_korda
+";
+$result = $conn->query($query);
+while ($row = $result->fetch_assoc()) {
+    $korda = trim($row['nama_korda']);
+    $jumlahTampung[$korda] = (int)$row['total_tampung'];
+}
+
+// Statistik total
+$totalSekolah = count($markers);
+$totalKecamatan = $conn->query("SELECT COUNT(*) FROM kecamatan")->fetch_row()[0];
+$totalDesa = $conn->query("SELECT COUNT(*) FROM desakel")->fetch_row()[0];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Admin - Zonasi SMP Banjarnegara</title>
+    <title>Dashboard Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Style -->
     <link rel="stylesheet" href="assets/adminstyle.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- jQuery & DataTables -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <style>
+        .leaflet-top.leaflet-right {
+            top: 10px;
+            right: 10px;
+        }
+
+        .custom-control {
+            background: white;
+            padding: 8px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(13, 3, 151, 0.2);
+        }
+    </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <img src="assets/image/logo.png" alt="Logo" width="40">
@@ -51,16 +99,13 @@ $totalDesa = countData($conn, 'desakel');
             </nav>
         </div>
 
-        <!-- Button mobile -->
         <button id="menuToggle" class="menu-button">☰ Menu</button>
         <div class="overlay" id="overlay"></div>
 
-        <!-- Main Content -->
         <div class="main-content">
             <main>
                 <h1>Dashboard Admin</h1>
 
-                <!-- Statistik -->
                 <div class="card-container">
                     <a href="admin_sekolah.php" class="card-link">
                         <div class="card">
@@ -82,19 +127,19 @@ $totalDesa = countData($conn, 'desakel');
                     </a>
                 </div>
 
-                <!-- Informasi Umum -->
+                <div class="info-box">
+                    <div class="info-box-header">
+                        <h2>Visualisasi Korda</h2>
+                    </div>
+                    <div id="map"></div>
+                </div>
+
+                <br>
                 <div class="info-box">
                     <div class="info-box-header">
                         <h2>Informasi Umum</h2>
                         <a href="tambah_informasi.php" class="btn-tambah">Tambah</a>
                     </div>
-
-                    <?php if (isset($_GET['success_delete'])): ?>
-                        <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border: 1px solid #f5c6cb; border-radius: 5px;">
-                            🗑️ Data berhasil dihapus.
-                        </div>
-                    <?php endif; ?>
-
                     <div class="table-wrapper">
                         <table id="data-table" class="display">
                             <thead>
@@ -109,8 +154,7 @@ $totalDesa = countData($conn, 'desakel');
                                 <?php
                                 $no = 1;
                                 $result = $conn->query("SELECT * FROM informasi ORDER BY id DESC");
-                                while ($row = $result->fetch_assoc()):
-                                ?>
+                                while ($row = $result->fetch_assoc()): ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= htmlspecialchars($row['header']) ?></td>
@@ -119,7 +163,7 @@ $totalDesa = countData($conn, 'desakel');
                                             <a href="edit_informasi.php?id=<?= $row['id'] ?>">
                                                 <button class="btn-detail">Edit</button>
                                             </a>
-                                            <a href="delete_informasi.php?id=<?= $row['id'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus informasi ini?')">
+                                            <a href="delete_informasi.php?id=<?= $row['id'] ?>" onclick="return confirm('Yakin ingin menghapus?')">
                                                 <button class="btn-delete">Hapus</button>
                                             </a>
                                         </td>
@@ -131,51 +175,17 @@ $totalDesa = countData($conn, 'desakel');
                 </div>
             </main>
         </div>
-
-
     </div>
-    <!-- Footer -->
     <footer>
-        © <?= date('Y') ?> Dindikpora Kab. Banjarnegara. All Rights Reserved
+        &copy; <?= date('Y') ?> Dindikpora Kab. Banjarnegara. All Rights Reserved
     </footer>
 
     <script>
-        $(document).ready(function() {
-            $('#data-table').DataTable({
-                language: {
-                    search: "Cari Informasi : ",
-                    lengthMenu: "Tampilkan _MENU_ data",
-                    zeroRecords: "Data tidak ditemukan",
-                    info: "",
-                    infoEmpty: "",
-                    infoFiltered: ""
-                },
-                initComplete: function() {
-                    // Tambahkan kelas .top ke parent agar flexbox aktif
-                    $('.dataTables_length').parent().addClass('top');
-                }
-            });
-        });
+        const markersData = <?= json_encode($markers); ?>;
+        const kordaData = <?= json_encode($kordaData); ?>;
+        const jumlahSekolah = <?= json_encode($jumlahSekolah); ?>;
     </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#informasiTable').DataTable();
-        });
-
-        const menuButton = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-            menuButton.textContent = sidebar.classList.contains('active') ? '✖ Close' : '☰ Menu';
-        }
-
-        menuButton.addEventListener('click', toggleSidebar);
-        overlay.addEventListener('click', toggleSidebar);
-    </script>
+    <script src="assets/script/admin.js"></script>
 </body>
 
 </html>

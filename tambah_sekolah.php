@@ -10,11 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alamat_sekolah = trim($_POST['alamat_sekolah']);
     $daya_tampung = trim($_POST['daya_tampung']);
     $akreditasi = trim($_POST['akreditasi']);
+    $korda = trim($_POST['korda']);
     $latitude = trim($_POST['latitude']);
     $longitude = trim($_POST['longitude']);
 
-    $stmt = $conn->prepare("INSERT INTO sekolah (npsn, nama_sekolah, alamat_sekolah, daya_tampung, akreditasi, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $npsn, $nama_sekolah, $alamat_sekolah, $daya_tampung, $akreditasi, $latitude, $longitude);
+    $stmt = $conn->prepare("INSERT INTO sekolah (npsn, nama_sekolah, alamat_sekolah, daya_tampung, akreditasi, korda, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssss", $npsn, $nama_sekolah, $alamat_sekolah, $daya_tampung, $akreditasi, $korda, $latitude, $longitude);
     $stmt->execute();
 
     header("Location: tambah_sekolah.php?success=1");
@@ -58,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="akreditasi">Akreditasi:</label>
             <input type="text" name="akreditasi" required pattern="^[A-C]{1}$" title="Hanya huruf A, B, atau C saja" maxlength="1" autocomplete="off">
 
+            <label for="korda">Korda:</label>
+            <input type="text" name="korda" required pattern=".*\S.*" title="Tidak boleh kosong atau hanya spasi">
 
             <label for="latitude">Latitude:</label>
             <input type="text" name="latitude" required pattern="^-?\d{1,3}(\.\d+)?$" title="Masukkan angka desimal, contoh: -7.123456">
